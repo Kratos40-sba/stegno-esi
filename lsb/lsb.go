@@ -56,7 +56,12 @@ func StegnoEncod(m, d string, im image.Image, config *encryption.Config) error {
 	if err != nil {
 		return err
 	}
-	defer stegoImage.Close()
+	defer func(stegoImage *os.File) {
+		err := stegoImage.Close()
+		if err != nil {
+
+		}
+	}(stegoImage)
 	err = png.Encode(stegoImage, rgbIm)
 	if err != nil {
 		return err

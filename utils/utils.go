@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"image"
 	"image/draw"
+	"image/png"
+	"os"
 )
 
 // XOR function
@@ -29,4 +31,21 @@ func ImToRgba(im image.Image) *image.RGBA {
 	n := image.NewRGBA(image.Rect(0, 0, bs.Dx(), bs.Dy()))
 	draw.Draw(n, n.Bounds(), im, bs.Min, draw.Src)
 	return n
+}
+func OpenPng(f string) (image.Image, error) {
+	ff, err := os.Open(f)
+	if err != nil {
+		return nil, err
+	}
+	defer func(ff *os.File) {
+		err := ff.Close()
+		if err != nil {
+
+		}
+	}(ff)
+	im, err := png.Decode(ff)
+	if err != nil {
+		return nil, err
+	}
+	return im, nil
 }
