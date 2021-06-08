@@ -15,11 +15,11 @@ const (
 )
 
 func main() {
+	// encode message and image
 	im, err := utils.OpenPng(INFILE)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	// encode message and image
 	err = lsb.StegnoEncod(MESSAGE, OUTFILE, im, &encryption.Config{
 		Methode: encryption.Xor,
 		Cle:     KEY,
@@ -29,11 +29,13 @@ func main() {
 	} else {
 		log.Printf("File %s Created ", OUTFILE)
 	}
+	// decode to message
+
 	imm, err := utils.OpenPng(OUTFILE)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	// decode to message
+
 	message, err := lsb.StegnoDecod(imm, &encryption.Config{
 		Methode: encryption.Xor,
 		Cle:     KEY,
@@ -42,4 +44,5 @@ func main() {
 		log.Fatalln(err)
 	}
 	log.Printf("Message => %s", message)
+
 }
