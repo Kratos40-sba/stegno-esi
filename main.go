@@ -9,7 +9,7 @@ import (
 
 const (
 	KEY     = "123456789"
-	MESSAGE = "esi-sba 2021"
+	MESSAGE = "this is a secret message"
 	OUTFILE = "steg.png"
 	INFILE  = "f.png"
 )
@@ -26,6 +26,8 @@ func main() {
 	})
 	if err != nil {
 		log.Fatalln(err)
+	} else {
+		log.Printf("File %s Created ", OUTFILE)
 	}
 	imm, err := utils.OpenPng(OUTFILE)
 	if err != nil {
@@ -39,5 +41,5 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Printf(" Message => %s", message)
+	log.Printf("Message => %s", message)
 }
